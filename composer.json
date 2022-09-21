@@ -72,6 +72,7 @@
         "phpmd": "vendor/bin/phpmd . text phpmd_ruleset.xml --exclude vendor,_ide_helper.php,database,app/Console/Kernel.php,tests",
         "security-checker": "vendor/bin/security-checker security:check",
         "phpcbf": "vendor/bin/phpcbf app --standard=PSR12",
+        "pint": "vendor/bin/pint app --preset=psr12",
         "phpunit": "vendor/bin/phpunit --color=always",
         "pest": "vendor/bin/pest --stop-on-failure --parallel",
         "routes": "@php artisan route:list --except-vendor",
