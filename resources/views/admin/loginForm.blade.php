@@ -6,7 +6,7 @@
             </a>
         </div>
 
-        <div class="mx-auto text-center">
+        <div class="mx-auto text-center mt-4">
             <span class="text-gray-500 text-2xl">Admin Login</span>
         </div>
 
@@ -36,7 +36,7 @@
             <!-- Remember Me -->
             <div class="block mt-4">
                 <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-tdl-500 text-tdl-600 shadow-sm" name="remember">
+                    <input id="remember_me" type="checkbox" class="rounded border-dev-500 text-dev-600 shadow-sm" name="remember">
                     <span class="ml-2 text-sm text-gray-500">{{ __('Remember me') }}</span>
                 </label>
             </div>

@@ -11,6 +11,7 @@
                 bg-gray-300/50 dark:bg-gray-600/50
                 backdrop-blur-sm
                 delay-300
+                shadow-md
             "
             x-transition:enter="transform ease-out duration-300 transition"
             x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"

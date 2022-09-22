@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <link
+            rel="icon"
+            href="{{ asset('favicon.svg') }}"
+            sizes="any"
+            type="image/svg+xml" />
         <title> {{ config('app.name', 'Laravel') }}</title>
         <link rel="stylesheet" href="{{ asset('fonts/material-icons.css') }}" />
         <link rel="stylesheet" href="{{ asset('fonts/octicons.css') }}" />
@@ -31,9 +36,9 @@
                             this.notification_content = content
                             this.notification_success = success
                             this.notification_show = true
-                            setTimeout(() => {
-                                this.closeNotification()
-                            }, 5000)
+{{--                            setTimeout(() => {--}}
+{{--                                this.closeNotification()--}}
+{{--                            }, 5000)--}}
                         },
                         closeNotification() {
                             this.notification_show = false
@@ -51,7 +56,7 @@
             <div
                 class="w-full flex flex-col flex-1"
                 @auth
-                    x-bind:class="sidebarCollapsed ? 'md:pl-20' : 'md:pl-64'"
+                    :class="sidebarCollapsed ? 'md:pl-20' : 'md:pl-64'"
                 @else
                     :class="'md:pl-0'"
                 @endauth

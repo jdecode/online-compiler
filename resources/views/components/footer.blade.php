@@ -15,22 +15,18 @@
             target="_blank">
             <i class="octicons octicon-mark-github-16 pr-1 text-sm"></i>
             <span class="text-base">{{ config('app.name', 'Laravel') }}</span>
-            <span
-                title=" {{ config('app.name', 'Laravel') }}"
-                class="text-tdl-500 material-icons-outlined absolute right-0 top-0 -mr-8 -mt-3 text-4xl">bolt</span>
-            <span
-                title=" {{ config('app.name', 'Laravel') }}"
-                class="text-tdl-500 material-icons-outlined absolute right-0 top-0 -mr-8 -mt-3 text-4xl animate-ping opacity-25">bolt</span>
+            <x-bolt class="text-dev-500 absolute right-0 top-0 -mr-9 -mt-3 text-4xl w-10"></x-bolt>
+            <x-bolt class="text-dev-500 absolute right-0 top-0 -mr-9 -mt-3 text-4xl animate-ping opacity-25 w-10"></x-bolt>
         </a>
     </p>
     <p>
         <a title="{{ env('GITHUB_USERNAME', 'laravel') }} [new tab]" href="https://github.com/{{ env('GITHUB_USERNAME', 'laravel') }}" target="_blank" class="font-bold underline underline-offset-2">
-            <span class="text-tdl-500">{{ env('GITHUB_USERNAME', 'laravel') }}</span>
+            <span class="text-dev-500">{{ env('GITHUB_USERNAME', 'laravel') }}</span>
         </a>
     </p>
     <p class="mt-2 clear-both">
         Built with
-        <span class="text-tdl-500 text-lg">&hearts;</span>
+        <span class="text-dev-500 text-lg">&hearts;</span>
         using
         <a href="https://laravel.com" target="_blank" class="underline">Laravel</a>
         <a href="https://tailwindcss.com" target="_blank" class="underline">TailwindCSS</a>
