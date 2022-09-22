@@ -7,11 +7,11 @@
     <div class="flex flex-col flex-grow pt-5 bg-gray-300 dark:bg-gray-800 overflow-y-auto">
         <div class="
             flex items-center justify-between
-            px-0 ml-4 -mr-1
+            px-0 ml-2
             text-gray-500
             text-4xl
             ">
-            <a href="{{ route('admin.dashboard') }}" class="shrink-0">
+            <a href="{{ route('admin.dashboard') }}">
                 <x-application-logo class="block h-10 w-auto fill-current"></x-application-logo>
             </a>
             <div

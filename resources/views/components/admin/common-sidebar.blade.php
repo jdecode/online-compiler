@@ -56,28 +56,6 @@
             <span class="material-icons-outlined text-xl">close</span>
             <span class="pl-2 text-xl">Close</span>
         </div>
-        <div
-            class="py-4 pl-6
-                flex items-center cursor-pointer
-                border border-l-0 border-r-0 border-b-0 border-t-1 border-gray-500/50
-                hidden md:block"
-            x-cloak
-            x-show="!sidebarCollapsed"
-            @click="sidebarCollapsed = true"
-            title="Shift + left-arrow to collapse / Shift + right-arrow to expand"
-            >
-            <span class="material-icons-outlined text-xl">arrow_back</span>
-            <span class="pl-2 text-xl">Collapse</span>
-        </div>
-        <div
-            class="py-4 pl-6
-                flex items-center cursor-pointer
-                border border-l-0 border-r-0 border-b-0 border-t-1 border-gray-500/50
-                hidden md:block
-            " x-cloak x-show="sidebarCollapsed" @click="sidebarCollapsed = false">
-            <span
-                class="material-icons-outlined text-xl"
-            >arrow_forward</span>
-        </div>
+
     </div>
 </div>
