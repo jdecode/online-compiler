@@ -1,13 +1,13 @@
 <x-app-layout>
+    <div class="mx-auto text-center">
+        <a href="{{ route('home') }}">
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500"></x-application-logo>
+        </a>
+    </div>
     <x-auth-card>
-        <div class="mx-auto text-center">
-            <a href="{{ route('home') }}">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500"></x-application-logo>
-            </a>
-        </div>
 
         <div class="mx-auto text-center mt-4">
-            <span class="text-gray-500 text-2xl">Admin Login</span>
+            <span class="text-2xl">Admin Login</span>
         </div>
 
         <!-- Validation Errors -->
