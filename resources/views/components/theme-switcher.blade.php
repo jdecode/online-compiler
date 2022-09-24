@@ -7,7 +7,7 @@
 @endphp
 <div>
     <div class="focus:outline-none p-1 ">
-        <div class="flex items-center min-w-6 mr-2 ">
+        <div class="flex items-center min-w-6 mr-2 hidden">
             @if(config('app.env') == 'local' && $helper_icons)
                 <a
                     href="https://laravel.com/docs"

@@ -11,7 +11,7 @@
             text-gray-500
             text-4xl
             ">
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ route('dashboard') }}">
                 <x-application-logo class="block h-10 w-auto fill-current"></x-application-logo>
             </a>
             <div
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="mt-5 flex-1 flex flex-col">
-            <x-admin.common-sidebar></x-admin.common-sidebar>
+            <x-user.common-sidebar></x-user.common-sidebar>
         </div>
     </div>
 </div>

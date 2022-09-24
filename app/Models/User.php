@@ -23,23 +23,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'github_id',
+        'github_username',
+        'github_email',
+        'github_token',
+        'github_refresh_token',
+        'github_oauth_status',
+        'github_oauth_timestamp',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

@@ -4,7 +4,7 @@
         <li title="Dashboard">
             <x-nav-link
                 class="group"
-                :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 <span class="material-icons-outlined text-2xl pr-2">dashboard</span>
                 <span x-cloak x-show="!sidebarCollapsed">{{ __('Dashboard') }}</span>
             </x-nav-link>
@@ -27,7 +27,7 @@
             title="Logout">
             <form
                 method="POST"
-                action="{{ route('admin.logout') }}"
+                action="{{ route('logout') }}"
                 class="w-full min-w-full ">
                 @csrf
                 <button

@@ -58,12 +58,12 @@
             </div>
 
             <div class="flex-shrink-0 flex items-center px-4">
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ route('dashboard') }}">
                     <x-application-logo class="block h-10 w-auto fill-current"></x-application-logo>
                 </a>
             </div>
             <div class="mt-5 flex-1 h-0 overflow-y-auto">
-                <x-admin.common-sidebar></x-admin.common-sidebar>
+                <x-user.common-sidebar></x-user.common-sidebar>
             </div>
         </div>
 

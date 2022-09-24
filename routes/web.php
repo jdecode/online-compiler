@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GithubController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,21 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin', 'index')->name('admin');
-        Route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
-        Route::post('/admin/logout', 'logout')->name('admin.logout');
-    });
+    Route::get('/login', function () {
+        return view('user.login');
+    })->name('login');
 });
 
-Route::middleware(['guest'])->group(function () {
-    Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin/login', 'loginForm')->name('admin.loginForm');
-        Route::post('/admin/login', 'login')->name('admin.login');
+Route::get('/auth/github/login', function () {
+    return Socialite::driver('github')
+        ->scopes(['read:user', 'user:email'])
+        ->redirect();
+})->name('github.login');
+Route::get('/auth/github/callback', [GithubController::class, 'callback'])->name('github.redirect');
+
+Route::middleware(['auth:web'])->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::post('/logout', 'logout')->name('logout');
     });
 });

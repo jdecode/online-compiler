@@ -63,7 +63,7 @@
                         x-show="openAuthDropdown"
                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-100 dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu">
 
-                        <form method="POST" action="{{ route('admin.logout') }}">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button
                                 type="submit"

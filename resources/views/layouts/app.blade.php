@@ -50,8 +50,8 @@
             x-on:close-notification="closeNotification()"
             >
             @auth
-                <x-admin.mobile-sidebar></x-admin.mobile-sidebar>
-                <x-admin.desktop-sidebar></x-admin.desktop-sidebar>
+                <x-user.mobile-sidebar></x-user.mobile-sidebar>
+                <x-user.desktop-sidebar></x-user.desktop-sidebar>
             @endauth
             <div
                 class="w-full flex flex-col flex-1"
@@ -62,7 +62,7 @@
                 @endauth
                 >
                 @auth
-                    <x-admin.top-bar></x-admin.top-bar>
+                    <x-user.top-bar></x-user.top-bar>
                 @endauth
                 <main>
                     <div class="py-1">

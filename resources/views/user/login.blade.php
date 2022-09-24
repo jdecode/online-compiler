@@ -22,7 +22,7 @@
                                 bg-slate-800 text-white
                                 rounded-md
                                 "
-                            >
+                        >
                             <span class="mt-1">
                                 <i class="octicons octicon-mark-github-16 text-3xl"></i>
                             </span>
