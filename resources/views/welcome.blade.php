@@ -14,15 +14,6 @@
                 <span class="mt-4">{{ config('app.name') }}</span>
                 @if (app()->isLocal() || env('SHOW_WELCOME_PAGE_LINKS'))
                     <div class="mt-8 text-base">
-                        <div>
-                            <a href="{{route('api.v1')}}">
-                                API base URL<br/>
-                                <span class="text-dev-500">{{route('api.v1')}}</span>
-                            </a>
-                            <a href="{{ route('api.v1') }}" target="_blank" class="text-dev-500">
-                                <span class="material-icons-outlined">open_in_new</span>
-                            </a>
-                        </div>
                         <div class="mt-4">
                             <a href="{{route('admin.loginForm')}}">
                                 Admin Login:<br/>
