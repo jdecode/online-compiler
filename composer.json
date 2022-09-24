@@ -94,8 +94,8 @@
             "@tests"
         ],
         "pre-pester": [
-            "npm run heroku-prebuild",
-            "npm run heroku-postbuild",
+            "npm run install",
+            "npm run build",
             "@putenv CACHE_DRIVER=array"
         ],
         "pre-commit": [
