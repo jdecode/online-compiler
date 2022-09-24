@@ -69,7 +69,7 @@
         "phpunit": "vendor/bin/phpunit --color=always",
         "pest": "vendor/bin/pest --stop-on-failure --parallel",
         "routes": "@php artisan route:list --except-vendor",
-        "chmoder" : "chmod -R 777 storage bootstrap /usr/lib/node_modules /usr/bin && chown -R 2100:2100 /usr/lib/node_modules /usr/bin/",
+        "chmoder" : "chmod -R 777 storage bootstrap public/build /usr/lib/node_modules /usr/bin && chown -R 2100:2100 /usr/lib/node_modules /usr/bin/",
         "clear": [
             "@php artisan config:clear",
             "@php artisan route:clear",
