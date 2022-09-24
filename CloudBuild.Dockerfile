@@ -10,6 +10,7 @@ COPY . /var/www/html
 
 RUN composer install -n --prefer-dist
 
+RUN mkdir public/build && chmod -R 0777 public/build
 RUN npm install
 RUN npm run build
 
