@@ -16,7 +16,7 @@ services:
     environment:
       APP_NAME: 'Online compiler'
       APP_DEBUG: 'true'
-      APP_URL: 'http://100.102.1.1'
+      APP_URL: 'http://127.0.0.1:2100'
       DB_CONNECTION: 'pgsql'
       QUEUE_CONNECTION: 'database'
       XDEBUG_CONFIG: "mode=debug,coverage,develop client_host=host.docker.internal discover_client_host=1 start_with_request=yes"

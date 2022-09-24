@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GithubController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -32,9 +31,30 @@ Route::get('/auth/github/login', function () {
         ->scopes(['read:user', 'user:email'])
         ->redirect();
 })->name('github.login');
-Route::get('/auth/github/callback', [GithubController::class, 'callback'])->name('github.redirect');
 
-Route::middleware(['auth:web'])->group(function () {
+Route::get('/auth/github/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+    $user = User::updateOrCreate(
+        [
+            'email' => $githubUser->getEmail(),
+        ],
+        [
+            'name' => $githubUser->getName(),
+            'github_id' => $githubUser->getId(),
+            'github_email' => $githubUser->getEmail(),
+            'github_username' => $githubUser->getNickname(),
+            'github_token' => $githubUser->token ?? '',
+            'github_refresh_token' => $githubUser->refreshToken ?? '',
+            'github_oauth_status' => true,
+            'github_oauth_timestamp' => now(),
+        ]
+    );
+    Auth::login($user);
+    return redirect(route('dashboard'));
+
+})->name('github.redirect');
+
+Route::middleware(['auth'])->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::post('/logout', 'logout')->name('logout');
