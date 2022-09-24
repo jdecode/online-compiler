@@ -12,7 +12,7 @@
                 flex flex-col items-center
             ">
                 <span class="mt-4">{{ config('app.name') }}</span>
-                @if (app()->isLocal())
+                @if (app()->isLocal() || env('SHOW_WELCOME_PAGE_LINKS'))
                     <div class="mt-8 text-base">
                         <div>
                             <a href="{{route('api.v1')}}">
