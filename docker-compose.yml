@@ -22,6 +22,9 @@ services:
       XDEBUG_CONFIG: "mode=debug,coverage,develop client_host=host.docker.internal discover_client_host=1 start_with_request=yes"
       GITHUB_USERNAME: 'jdecode'
       GITHUB_REPONAME: 'online-compiler'
+      GITHUB_CLIENT_ID: 'XXXXXXXXXXXXXXXXXXXXXXXXX'
+      GITHUB_CLIENT_SECRET: 'XXXXXXXXXXXXXXXXXXXXXXXXX'
+      GITHUB_CALLBACK: '/auth/github/callback'
     networks:
       online-compiler-api-network:
         ipv4_address: 100.102.1.1
