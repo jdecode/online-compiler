@@ -92,6 +92,7 @@
             "@ci"
         ],
         "ci": [
+            "@pre-pester",
             "@chmoder",
             "@tests"
         ],
