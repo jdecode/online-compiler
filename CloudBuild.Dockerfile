@@ -9,6 +9,11 @@ COPY . /var/www/html
 
 RUN composer install -n --prefer-dist
 #RUN composer run ci
+RUN chmod -R 0777 storage bootstrap public/build
+
+RUN npm install
+RUN npm run build
+
 
 RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
