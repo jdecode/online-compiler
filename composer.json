@@ -91,15 +91,19 @@
         ],
         "ci": [
             "@chmoder",
-            "npm install",
-            "npm run build",
             "@tests"
+        ],
+        "pre-pester": [
+            "npm run heroku-prebuild",
+            "npm run heroku-postbuild",
+            "@putenv CACHE_DRIVER=array"
         ],
         "pre-commit": [
             "@pint",
             "@security-checker"
         ],
         "pre-push": [
+            "@pre-pester",
             "@pest"
         ],
         "tests": [
