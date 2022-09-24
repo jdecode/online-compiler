@@ -94,7 +94,7 @@
             "@tests"
         ],
         "pre-pester": [
-            "npm run install",
+            "npm install",
             "npm run build",
             "@putenv CACHE_DRIVER=array"
         ],
