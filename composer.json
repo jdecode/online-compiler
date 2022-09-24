@@ -97,7 +97,7 @@
             "@tests"
         ],
         "pre-pester": [
-            "mkdir public/build && chmod -R 0777 public/build",
+            "mkdir -p public/build && chmod -R 0777 public/build",
             "npm install",
             "npm run build",
             "@putenv CACHE_DRIVER=array"
