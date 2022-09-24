@@ -1,6 +1,7 @@
 # For GCP / Cloud Build
 #FROM devopsfnl/image:php-8.1-laravel-newman-xdebug3
-FROM jdecode/php:jre-jdk-py-py3-phpize
+#FROM jdecode/php:jre-jdk-py-py3-phpize
+FROM asia-southeast1-docker.pkg.dev/online-compiler-363217/hybrid/java-python3-php:latest
 
 ARG PORT
 ENV PORT=${PORT}
