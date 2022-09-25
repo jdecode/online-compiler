@@ -3,7 +3,13 @@
     </x-slot>
     <div class="w-full mx-auto">
         <div class=" sm:rounded-md">
-            <form action="{{ route('dashboard') }}" method="POST">
+            <form
+                action="{{ route('dashboard') }}"
+                method="POST"
+                x-data="{
+                    error_in_code: {{ $error_in_code }}
+                }"
+                >
                 @csrf
                 <div class="w-48">
                     <label for="language" class="block text-base font-medium mb-4">Language</label>
@@ -20,7 +26,6 @@
                             languages : [
                                 {key: 'bash', value: 'Bash', default: false},
                                 {key: 'c', value: 'C', default: false},
-                                {key: 'java', value: 'Java', default: false},
                                 {key: 'javascript', value: 'JavaScript', default: false},
                                 {key: 'php', value: 'PHP', default: false},
                                 {key: 'python', value: 'Python', default: false}
@@ -64,7 +69,16 @@
                     >Run</button>
                 </div>
                 <div class="w-full">
-                    <label for="result" class="block text-base font-medium mt-8 mb-4">Result</label>
+                    <label for="result" class="block text-base font-medium mt-8 mb-4 flex items-center">
+                        <span>Result</span>
+                        @if( request()->isMethod('post'))
+                            <span
+                                class="material-icons-outlined ml-2 text-2xl"
+                                :class="error_in_code === 0 ? 'text-green-500' : 'text-red-500'"
+                                x-text="error_in_code === 0 ? 'check_circle' : 'cancel'"
+                                ></span>
+                        @endif
+                    </label>
                     <div
                         id="result"
                         class="
@@ -73,14 +87,14 @@
                             m-1 p-4
                             focus:border-none focus:outline-none focus:ring-0
                             bg-slate-800 dark:bg-slate-800
-                            text-green-600
                             text-sm
                             font-mono
                             overflow-y-auto
                             overflow-x-hidden
                             "
+                        :class="error_in_code === 0 ? 'text-green-500' : 'text-red-500'"
                         readonly
-                    >{!! !empty($output) ? nl2br($output) : 'Execution results would be shown here' !!}</div>
+                    >{!! !empty($output) ? nl2br($output) : '' !!}</div>
                 </div>
             </form>
         </div>

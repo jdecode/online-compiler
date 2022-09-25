@@ -6,7 +6,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use JetBrains\PhpStorm\ArrayShape;
 
 class UserController extends Controller
 {
@@ -17,9 +16,20 @@ class UserController extends Controller
 
     public function dashboard(Request $request): View
     {
+        $output = !$request->isMethod('post')
+            ?
+            [
+                'language' => 'c',
+                'code' => '',
+                'output' => 'Execution results would be shown here',
+                'error_in_code' => ''
+            ]
+            :
+            $this->runCode($request)
+        ;
         return view(
             'user.dashboard',
-            $this->runCode($request)
+            $output
         );
     }
 
@@ -36,49 +46,51 @@ class UserController extends Controller
         return redirect(route('home'));
     }
 
-    #[ArrayShape(['language' => "mixed|string", 'code' => "mixed", 'output' => "string"])]
     private function runCode(Request $request): array
     {
         $language = $request->input('language');
         $code = $request->input('code', '');
         $filename = uniqid();
         $output = '';
+        $error_in_code = null;
 
         if ($language === 'php') {
             $filename .= '.php';
             file_put_contents($filename, $code);
-            exec('php ' . $filename, $output);
+            exec('php ' . $filename, $output, $error_in_code);
             unlink($filename);
         } elseif ($language === 'python') {
             $filename .= '.py';
             file_put_contents($filename, $code);
-            exec('python3 ' . $filename, $output);
+            exec('python ' . $filename . ' 2>&1', $output, $error_in_code);
+            unlink($filename);
+        } elseif ($language === 'c') {
+            $filename_sans_ext = $filename;
+            $filename .= '.c';
+            file_put_contents($filename, $code);
+            exec("gcc $filename -o $filename_sans_ext 2>&1", $output, $error_in_code);
+            if ($error_in_code === 0) {
+                exec("./$filename_sans_ext 2>&1", $output, $error_in_code);
+                unlink($filename_sans_ext);
+            }
             unlink($filename);
         } elseif ($language === 'javascript') {
             $filename .= '.js';
             file_put_contents($filename, $code);
-            exec('node ' . $filename, $output);
+            exec('node ' . $filename, $output, $error_in_code);
             unlink($filename);
         } elseif ($language === 'bash') {
             $filename .= '.sh';
-            file_put_contents($filename, $code);
-            exec('bash ' . $filename, $output);
+            file_put_contents($filename, trim(str_replace("\r", "\n", $code)) . PHP_EOL);
+            exec('bash ' . $filename . ' 2>&1', $output, $error_in_code);
             unlink($filename);
-        } elseif ($language === 'java') {
-            $filename_sans_ext = $filename;
-            $filename .= '.java';
-            file_put_contents($filename, $code);
-            exec('javac ' . $filename, $output);
-            exec('java ' . $filename_sans_ext, $output);
-            unlink($filename);
-        } else {
-            $output = 'Execution results would be shown here';
         }
 
         return [
             'language' => !empty($language) ? $language : 'php',
             'code' => $code,
-            'output' => is_array($output) ? implode(PHP_EOL, $output) : $output
+            'output' => is_array($output) ? implode(PHP_EOL, $output) : $output,
+            'error_in_code' => $error_in_code
         ];
     }
 }
