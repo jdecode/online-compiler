@@ -14,7 +14,7 @@ RUN mkdir public/build && chmod -R 0777 public/build
 RUN npm install
 RUN npm run build
 
-RUN chmod -R 0777 storage bootstrap public/build
+RUN chmod -R 0777 storage bootstrap public/build public
 
 
 
