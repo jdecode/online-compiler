@@ -57,6 +57,7 @@ Route::get('/auth/github/callback', function () {
 Route::middleware(['auth'])->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::post('/dashboard', 'dashboard')->name('code-from-dashboard');
         Route::post('/logout', 'logout')->name('logout');
     });
 });
