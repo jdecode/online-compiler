@@ -23,7 +23,8 @@ class UserController extends Controller
                 'language' => 'c',
                 'code' => '',
                 'output' => 'Execution results would be shown here',
-                'error_in_code' => ''
+                'error_in_code' => '',
+                'command' => ''
             ]
             :
             $this->runCode($request)
@@ -51,7 +52,8 @@ class UserController extends Controller
         'language' => "mixed|string",
         'code' => "mixed",
         'output' => "string",
-        'error_in_code' => "int|mixed|null"
+        'error_in_code' => "int|mixed|null",
+        'command' => "string|null"
     ])]
     private function runCode(Request $request): array
     {
@@ -60,44 +62,56 @@ class UserController extends Controller
         $filename = "/tmp/".uniqid();
         $output = '';
         $error_in_code = null;
+        $command = '';
 
-        if ($language === 'php') {
-            $filename .= '.php';
-            file_put_contents($filename, $code);
-            exec('php ' . $filename, $output, $error_in_code);
-            unlink($filename);
-        } elseif ($language === 'python') {
-            $filename .= '.py';
-            file_put_contents($filename, $code);
-            exec('python ' . $filename . ' 2>&1', $output, $error_in_code);
-            unlink($filename);
-        } elseif ($language === 'c') {
-            $filename_sans_ext = $filename;
-            $filename .= '.c';
-            file_put_contents($filename, $code);
-            exec("gcc $filename -o $filename_sans_ext 2>&1", $output, $error_in_code);
-            if ($error_in_code === 0) {
-                exec("./$filename_sans_ext 2>&1", $output, $error_in_code);
-                unlink($filename_sans_ext);
-            }
-            unlink($filename);
-        } elseif ($language === 'javascript') {
-            $filename .= '.js';
-            file_put_contents($filename, $code);
-            exec('node ' . $filename, $output, $error_in_code);
-            unlink($filename);
-        } elseif ($language === 'bash') {
-            $filename .= '.sh';
-            file_put_contents($filename, trim(str_replace("\r", "\n", $code)) . PHP_EOL);
-            exec('bash ' . $filename . ' 2>&1', $output, $error_in_code);
-            unlink($filename);
+        switch ($language) {
+            case 'php':
+                $filename .= '.php';
+                $this->executioner($filename, $language, $code, $output, $error_in_code, $command);
+                break;
+            case 'python':
+                $filename .= '.py';
+                $this->executioner($filename, $language, $code, $output, $error_in_code, $command);
+                break;
+            case 'node':
+                $filename .= '.js';
+                $this->executioner($filename, $language, $code, $output, $error_in_code, $command);
+                break;
+            case 'bash':
+                $filename .= '.sh';
+                file_put_contents($filename, trim(str_replace("\r", "\n", $code)) . PHP_EOL);
+                $command = 'bash ' . $filename . ' 2>&1';
+                exec($command, $output, $error_in_code);
+                unlink($filename);
+                break;
+            case 'gcc':
+                $filename_sans_ext = $filename;
+                $filename .= '.c';
+                file_put_contents($filename, $code);
+                $command = "gcc $filename -o $filename_sans_ext 2>&1";
+                exec($command, $output, $error_in_code);
+                if ($error_in_code === 0) {
+                    $command .= " && $filename_sans_ext 2>&1";
+                    exec("$filename_sans_ext 2>&1", $output, $error_in_code);
+                    unlink($filename_sans_ext);
+                }
+                unlink($filename);
+                break;
         }
-
         return [
             'language' => !empty($language) ? $language : 'php',
             'code' => $code,
             'output' => is_array($output) ? implode(PHP_EOL, $output) : $output,
-            'error_in_code' => $error_in_code
+            'error_in_code' => $error_in_code,
+            'command' => $command
         ];
+    }
+
+    private function executioner($filename, $language, $code, &$output, &$error_in_code, &$command)
+    {
+        file_put_contents($filename, $code);
+        $command = $language . ' ' . $filename . ' 2>&1';
+        exec($command, $output, $error_in_code);
+        unlink($filename);
     }
 }
