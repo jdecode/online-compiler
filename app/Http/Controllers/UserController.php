@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\ArrayShape;
 
 class UserController extends Controller
 {
@@ -46,6 +47,12 @@ class UserController extends Controller
         return redirect(route('home'));
     }
 
+    #[ArrayShape([
+        'language' => "mixed|string",
+        'code' => "mixed",
+        'output' => "string",
+        'error_in_code' => "int|mixed|null"
+    ])]
     private function runCode(Request $request): array
     {
         $language = $request->input('language');
