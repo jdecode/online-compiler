@@ -29,11 +29,12 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/auth/github/login', function () {
     return Socialite::driver('github')
         ->scopes(['read:user', 'user:email'])
+        ->stateless()
         ->redirect();
 })->name('github.login');
 
 Route::get('/auth/github/callback', function () {
-    $githubUser = Socialite::driver('github')->user();
+    $githubUser = Socialite::driver('github')->stateless()->user();
     $user = User::updateOrCreate(
         [
             'email' => $githubUser->getEmail(),
