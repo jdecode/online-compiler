@@ -57,7 +57,7 @@
                                 placeholder="Paste your code here"
                             >{{ $code }}</textarea>
                         </div>
-                        <div class="w-2/5 pl-4 ml-4 mt-1">
+                        <div class="w-2/5 pl-4 ml-4 mt-1 {{ empty($command) ? ' hidden ' : ' ' }}">
                             <label for="code" class="block text-base font-medium mt-8 mb-4">Command</label>
                             <div
                                 class="
